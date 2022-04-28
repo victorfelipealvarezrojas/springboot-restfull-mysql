@@ -12,9 +12,28 @@ import java.util.List;
 public class ClienteServiceImpl implements IClienteService {
     @Autowired //inyeccion de dependencia del dao
     private IClienteDao clienteDao;
+
     @Override
     @Transactional(readOnly = true)
     public List<Cliente> finAll() {
         return (List<Cliente>) clienteDao.findAll();
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Cliente finById(Long Id) {
+        return clienteDao.findById(Id).orElse(null);
+    }
+
+    @Override
+    @Transactional
+    public Cliente save(Cliente cliente) {
+        return clienteDao.save(cliente);
+    }
+
+    @Override
+    @Transactional
+    public void delete(Long id) {
+        clienteDao.deleteById(id);
     }
 }
